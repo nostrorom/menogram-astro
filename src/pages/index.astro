@@ -1,13 +1,37 @@
 ---
+import Sidebar from '../components/Sidebar.astro'
+import QnA from '../components/QnA.svelte'
+import monogram from '../data/monogram'
+import type { Content } from '../../types/content.d';
 
+const contents: Content[] = monogram as Content[]
 ---
+
 <html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width" />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width" />
+	<title>Astro</title>
+</head>
+
+<body
+	class="flex w-screen min-h-screen bg-gradient-to-tl from-slate-900 to-slate-900 via-slate-800 text-violet-200 font-main antialiased text-sm">
+	<div class="h-screen fixed top-0 w-12 lg:w-20">
+		<Sidebar />
+	</div>
+
+	<main class="ml-12 lg:ml-20">
+		<h1 class="uppercase text-center pt-10 text-xl tracking-[1rem] text-indigo-300 font-title">
+			me<span class="text-fuchsia-600">の</span>gram
+		</h1>
+		<div class="px-4 md:px-12 lg:px-96 mb-12">
+
+			{contents.map((content) => (
+			<QnA content={content} open={true} client:load></QnA>
+			))}
+		</div>
+	</main>
+</body>
+
 </html>
